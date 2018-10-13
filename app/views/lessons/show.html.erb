@@ -1,0 +1,249 @@
+
+<div class="text-center" style="position:relative;right:11.5%;">
+<h1> <%= @lesson.lesson_name %></h1>
+</div>
+<br />
+<!-- <script>
+alert( $.fn.jquery )
+</script> -->
+<style>
+.makeblack {
+    color: black;
+    text-decoration: none;
+}
+
+.makeblack:hover {
+     color:black; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
+
+</style>
+
+
+<div class="text-left">
+<% @lesson.boxes.order(ordering: :asc).each do |box| %>
+  <div class="card card-1">
+
+    <div class="text-center" style="position:relative;">
+      <h3><%= box.title %></h2>
+
+    </div>
+    <br/>
+        <% if box.paragraph %>
+
+            <div id="para_<%= box.id %>" onmouseup="doSomethingWithSelectedText('<%= box.id %>','<%= current_user.id %>')" class="text-left" style="width:50%;position:relative;left:25%;" >
+              &nbsp; &nbsp; &nbsp; &nbsp; <%= box.paragraph.paragraph_text %>
+            </div>
+
+            <div class="text-right">
+                <a href="javascript:void(0);" class="makeblack"><span class="glyphicon glyphicon-pushpin pin" onclick="spaceOutNotes('note_paragraph_<%= box.id %>','note_paragraph_content_<%= box.id %>','note_paragraph_edit_<%= box.id %>','note_paragraph_save_<%= box.id %>');">-</span></a>
+                <% p_note = box.paragraph.paragraph_note(current_user.id,box.id) %>
+                    <div id="note_paragraph_<%= box.id %>" style="width:20%;position:absolute;left:105%;" hidden>
+                        <hgroup class="speech-bubble text-left" style="min-width:200px;min-height:200px;;bottom:17px;">
+
+                            <a id="note_paragraph_edit_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;" class="makeblack"><span class="glyphicon glyphicon-pencil" onclick="textBoxIn('note_paragraph_content_<%= box.id %>','note_paragraph_edit_<%= box.id %>','note_paragraph_save_<%= box.id %>');"></span></a>
+
+                            <a id="note_paragraph_save_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;visibility: hidden;" class="makeblack" ><span class="glyphicon glyphicon-edit" onclick="textBoxOut('note_paragraph_content_<%= box.id %>','note_paragraph_edit_<%= box.id %>','note_paragraph_save_<%= box.id %>','5', '<%= current_user.id %>','<%= box.id %>');"></span></a>
+
+                            <a href="javascript:void(0);" style="position:absolute;left:90%;" class="makeblack"><span class="glyphicon glyphicon-remove-circle" onclick="spaceOutNotes('note_paragraph_<%= box.id %>','note_paragraph_content_<%= box.id %>','note_paragraph_edit_<%= box.id %>','note_paragraph_save_<%= box.id %>');"></span></a>
+
+                            <br>
+                            <span id="note_paragraph_content_<%= box.id %>">
+                                <% if p_note != 0 %>
+                                     <%= p_note %>
+                                <% end %>
+
+
+                            </span>
+                        </hgroup>
+                    </div>
+                
+            </div>
+            <br/>
+            <br/>
+        <% end %>
+    
+          <!-- <iframe width="65%" height="315" src="https://www.youtube.com/embed/H9cIapZBHog"> </iframe> -->
+
+    <% if box.pic %>
+        <div class="text-left" style="width:50%;position:relative;left:25%;">
+          &nbsp; &nbsp; &nbsp; &nbsp; <img src="<%= box.pic.pic_url %>" height="300" width="300">
+
+        </div>
+
+        <div class="text-right">
+                <a href="javascript:void(0);" class="makeblack"><span class="glyphicon glyphicon-pushpin pin" onclick="spaceOutNotes('note_pic_<%= box.id %>','note_pic_content_<%= box.id %>','note_pic_edit_<%= box.id %>','note_pic_save_<%= box.id %>');">-</span></a>
+                <% f_note = box.pic.pic_note(current_user.id,box.id) %>
+                    <div id="note_pic_<%= box.id %>" style="width:20%;position:absolute;left:105%;" hidden>
+                        <hgroup class="speech-bubble text-left" style="min-width:200px;min-height:200px;;bottom:17px;">
+
+                            <a id="note_pic_edit_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;" class="makeblack"><span class="glyphicon glyphicon-pencil" onclick="textBoxIn('note_pic_content_<%= box.id %>','note_pic_edit_<%= box.id %>','note_pic_save_<%= box.id %>');"></span></a>
+
+                            <a id="note_pic_save_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;visibility: hidden;" class="makeblack" ><span class="glyphicon glyphicon-edit" onclick="textBoxOut('note_pic_content_<%= box.id %>','note_pic_edit_<%= box.id %>','note_pic_save_<%= box.id %>','2', '<%= current_user.id %>','<%= box.id %>');"></span></a>
+
+                            <a href="javascript:void(0);" style="position:absolute;left:90%;" class="makeblack"><span class="glyphicon glyphicon-remove-circle" onclick="spaceOutNotes('note_pic_<%= box.id %>','note_pic_content_<%= box.id %>','note_pic_edit_<%= box.id %>','note_pic_save_<%= box.id %>');"></span></a>
+
+                            <br>
+                            <span id="note_pic_content_<%= box.id %>">
+                                <% if f_note != 0 %>
+                                     <%= f_note %>
+                                <% end %>
+
+
+                            </span>
+                        </hgroup>
+                    </div>
+                
+            </div>
+
+        <br/>
+        <br/>
+    <% end %>
+
+
+    <% if box.doc %>
+        <div class="text-left" style="width:50%;position:relative;left:10%;">
+          <embed style =" position:relative;left:80px" src="<%= box.doc.doc_url %>" width="500" height="450" alt="pdf">
+<!-- https://www.myskillstutor.com/guides/classroomguide/mffWorksheets.pdf -->
+
+        </div>
+
+        <div class="text-right">
+                <a href="javascript:void(0);" class="makeblack"><span class="glyphicon glyphicon-pushpin pin" onclick="spaceOutNotes('note_doc_<%= box.id %>','note_doc_content_<%= box.id %>','note_doc_edit_<%= box.id %>','note_doc_save_<%= box.id %>');">-</span></a>
+                <% d_note = box.doc.doc_note(current_user.id,box.id) %>
+                    <div id="note_doc_<%= box.id %>" style="width:20%;position:absolute;left:105%;" hidden>
+                        <hgroup class="speech-bubble text-left" style="min-width:200px;min-height:200px;;bottom:17px;">
+
+                            <a id="note_doc_edit_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;" class="makeblack"><span class="glyphicon glyphicon-pencil" onclick="textBoxIn('note_doc_content_<%= box.id %>','note_doc_edit_<%= box.id %>','note_doc_save_<%= box.id %>');"></span></a>
+
+                            <a id="note_doc_save_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;visibility: hidden;" class="makeblack" ><span class="glyphicon glyphicon-edit" onclick="textBoxOut('note_doc_content_<%= box.id %>','note_doc_edit_<%= box.id %>','note_doc_save_<%= box.id %>','4', '<%= current_user.id %>','<%= box.id %>');"></span></a>
+
+                            <a href="javascript:void(0);" style="position:absolute;left:90%;" class="makeblack"><span class="glyphicon glyphicon-remove-circle" onclick="spaceOutNotes('note_doc_<%= box.id %>','note_doc_content_<%= box.id %>','note_doc_edit_<%= box.id %>','note_doc_save_<%= box.id %>');"></span></a>
+
+                            <br>
+                            <span id="note_doc_content_<%= box.id %>">
+                                <% if d_note != 0 %>
+                                     <%= d_note %>
+                                <% end %>
+
+
+                            </span>
+                        </hgroup>
+                    </div>
+                
+            </div>
+
+        <br/>
+        <br/>
+    <% end %>
+
+    <% if box.video %>
+        <div class="text-left" style="width:50%;position:relative;left:25%;">
+          &nbsp; &nbsp; &nbsp; &nbsp; <iframe width="85%" height="315" src="<%= box.video.video_url %>"> </iframe> 
+        </div>
+
+        <div class="text-right">
+                <a href="javascript:void(0);" class="makeblack"><span class="glyphicon glyphicon-pushpin pin" onclick="spaceOutNotes('note_video_<%= box.id %>','note_video_content_<%= box.id %>','note_video_edit_<%= box.id %>','note_video_save_<%= box.id %>');">-</span></a>
+                <% v_note = box.video.video_note(current_user.id,box.id) %>
+                    <div id="note_video_<%= box.id %>" style="width:20%;position:absolute;left:105%;" hidden>
+                        <hgroup class="speech-bubble text-left" style="min-width:200px;min-height:200px;;bottom:17px;">
+
+                            <a id="note_video_edit_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;" class="makeblack"><span class="glyphicon glyphicon-pencil" onclick="textBoxIn('note_video_content_<%= box.id %>','note_video_edit_<%= box.id %>','note_video_save_<%= box.id %>');"></span></a>
+
+                            <a id="note_video_save_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;visibility: hidden;" class="makeblack" ><span class="glyphicon glyphicon-edit" onclick="textBoxOut('note_video_content_<%= box.id %>','note_video_edit_<%= box.id %>','note_video_save_<%= box.id %>','1', '<%= current_user.id %>','<%= box.id %>');"></span></a>
+
+                            <a href="javascript:void(0);" style="position:absolute;left:90%;" class="makeblack"><span class="glyphicon glyphicon-remove-circle" onclick="spaceOutNotes('note_video_<%= box.id %>','note_video_content_<%= box.id %>','note_video_edit_<%= box.id %>','note_video_save_<%= box.id %>');"></span></a>
+
+                            <br>
+                            <span id="note_video_content_<%= box.id %>">
+                                <% if v_note != 0 %>
+                                     <%= v_note %>
+                                <% end %>
+
+
+                            </span>
+                        </hgroup>
+                    </div>
+                
+            </div>
+
+        <br/>
+        <br/>
+    <% end %>
+
+      
+    <% if box.solve %>
+        <div id="main_solve_box_<%= box.id %>"></div>
+        <input id="hidden_solve_box_<%= box.id %>" value="<%= box.solve.solve_math %>" hidden>
+        <div class="text-right">
+            <% s_note = box.solve.solve_note(current_user.id,box.id) %>
+            
+
+            <a href="javascript:void(0);" class="makeblack"><span class="glyphicon glyphicon-pushpin pin" onclick="spaceOutNotes('note_solve_<%= box.id %>');">-</span></a>
+            <div id="note_solve_<%= box.id %>" style="width:20%;position:absolute;left:105%;" hidden>
+                <hgroup class="speech-bubble text-left" style="min-width:200px;min-height:200px;;bottom:17px;">
+
+                        <a id="note_solve_edit_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;" class="makeblack"><span class="glyphicon glyphicon-pencil" onclick="textBoxIn('note_solve_content_<%= box.id %>','note_solve_edit_<%= box.id %>','note_solve_save_<%= box.id %>');"></span></a>
+
+                        <a id="note_solve_save_<%= box.id %>" href="javascript:void(0);" style="position:absolute;left:80%;visibility: hidden;" class="makeblack" ><span class="glyphicon glyphicon-edit" onclick="textBoxOut('note_solve_content_<%= box.id %>','note_solve_edit_<%= box.id %>','note_solve_save_<%= box.id %>','6', '<%= current_user.id %>','<%= box.id %>');"></span></a>
+
+                        <a href="javascript:void(0);" style="position:absolute;left:90%;" class="makeblack"><span class="glyphicon glyphicon-remove-circle" onclick="spaceOutNotes('note_solve_<%= box.id %>','note_solve_content_<%= box.id %>','note_solve_edit_<%= box.id %>','note_solve_save_<%= box.id %>');"></span></a>
+
+                        <br>
+                        <span id="note_solve_content_<%= box.id %>">
+                            <% if s_note != 0 %>
+                                 <%= s_note %>
+                            <% end %>
+
+
+                        </span>
+                    </hgroup>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+          <div class="text-center">
+            <button class="btn btn-primary" onclick="showAddition('main_solve_box_<%= box.id %>','hidden_solve_box_<%= box.id %>','solve_box_<%= box.id %>_rowz','solve_box_<%= box.id %>_colz');"> Solve </button>
+          </div>
+
+        </div>
+
+        <br />
+        <script>
+          var positionStruct = {};
+          setUpAddition('main_solve_box_<%= box.id %>','hidden_solve_box_<%= box.id %>','solve_box_<%= box.id %>_rowz','solve_box_<%= box.id %>_colz');
+        </script>
+    <% end %>
+        
+
+
+    </div>
+    <br/>
+
+  </div>
+  <% end %>
+
+
+  <% Assignment.where(book_id: @lesson.book_id, lesson_id: @lesson.id).each do |assignment| %>
+  <div class="card card-1">
+
+    <div class="text-center" style="position:relative;">
+      <h3><%= assignment.assignment_title %></h2>
+
+    </div>
+    <br/>
+
+            <div style="width:50%;position:relative;left:25%;">
+              &nbsp; &nbsp; &nbsp; &nbsp; <%= assignment.assignment_description %>
+            </div>
+
+            <br/>
+            <br/>
+        
+ </div>
+ <% end %>
+ <br/>
+            <br/>
+ </div>

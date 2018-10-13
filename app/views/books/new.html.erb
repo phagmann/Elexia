@@ -1,0 +1,135 @@
+
+<form action="../books" method="post">
+<br/>
+<input type="text" class="form-control" id="user_id" name="user_id" value="<%= current_user.id %>" style="display:none;">
+
+<input type="text" class="form-control" id="book_weights_string_list" name="book_weights_string_list" value="" style="display:none;">
+
+
+<div class="form-group row">
+    
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_id"> Subject:</label>
+        <select class="form-control" id="subject_id" name="subject_id">
+        <option value="">Select a Subject</option>
+            <% current_user.teacher_subjects.uniq.each do |subject| %>
+                <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+            <% end %>
+        </select>
+    </div>
+</div>
+
+
+<div class="form-group row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_name">Course Name:</label>
+        <input type="text" class="form-control" id="book_name" name="book_name" maxlength="100">
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="book_description">Description:</label>
+        <input type="text" class="form-control" id="book_description" name="book_description" >
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <!-- 
+        <input type="text" class="form-control" id="grade_distribution" name="grade_distribution" placeholder="Sum must be 100. Remainder will default to a single grade weight grouping." oninput="onWeightChange();"> -->
+        <label for="grade_distribution" >Grade Distribution:</label>
+        <div id="grade_distribution" type="text" class='input textarea clearfix custom stackoverflow'></div>
+     
+        <%= javascript_tag do %>
+           
+
+          var curr_taggle = new Taggle('grade_distribution', { 
+          allowDuplicates: true,
+          onTagAdd: function(event, tag) {
+
+                globalWeightRemainder -= Math.round(parseFloat(tag) * 100000000) / 100000000;
+                globalWeightRemainder = Math.round(globalWeightRemainder * 100000000) / 100000000; 
+            },
+          onTagRemove: function(event, tag) {
+                
+                globalWeightRemainder += Math.round(parseFloat(tag) * 100000000) / 100000000;
+                globalWeightRemainder = Math.round(globalWeightRemainder * 100000000) / 100000000; 
+            }
+
+          });
+
+
+
+
+          
+
+        <% end %>
+
+
+        <br />
+
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-offset-6">
+        <input class="btn btn-primary" type="submit" value="Submit" onclick="addWeight();">
+   </div>
+</div>
+
+
+</form>
+
+
+
+<script >
+
+
+
+function removeElementByClass(id) {
+    var elem = document.getElementsByClassName(id)[0];
+    return elem.parentNode.removeChild(elem);
+}
+
+
+
+var globalWeightRemainder = 100.0;
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function addWeight(){
+
+
+var grade_distribution = curr_taggle.tag.values;
+var rem = (100 - grade_distribution.reduce((a, b) => parseFloat(a) + parseFloat(b), 0)).toString()
+if(rem != '0'){
+    grade_distribution.push(rem)
+}
+document.getElementById('book_weights_string_list').value = grade_distribution.join(',') ;
+
+}
+
+function onWeightChange(){
+    
+    var grade_distribution = document.getElementsByClassName('taggle_input')[0];
+    var numberToCheck = grade_distribution.value.toString()
+    console.log(numberToCheck, globalWeightRemainder ,isNumber(numberToCheck))
+    if(parseFloat(numberToCheck) > globalWeightRemainder || !isNumber(numberToCheck) || numberToCheck.charAt(0) == '0' || numberToCheck.charAt(0) == '.'){
+        
+        grade_distribution.value = numberToCheck.slice(0, -1)
+    }
+}
+
+
+$( document ).ready(function() {
+    document.getElementsByClassName('taggle_list')[0].style = "padding:0px;";
+
+    document.getElementsByClassName('taggle_placeholder')[0].innerHTML = "Enter Tags for Grade Weights. Hit 'Enter' for new tag. Sum of tags must equal 100. Remainder will be a new tag, if any."
+    document.getElementsByClassName('taggle_input')[0].type = "text"
+    document.getElementsByClassName('taggle_input')[0].setAttribute("oninput", "onWeightChange();", false);
+
+});
+</script>

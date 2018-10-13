@@ -1,0 +1,48 @@
+
+
+<body class="greyBackround">
+    <div class="text-center">
+    <h1> <%= @book.book_name %> </h1>
+
+    <% @book.sections.uniq.each do |section| %>
+        &nbsp; <%= section.section_name %> <br>
+        <% section.chapters.each do |chapter| %>
+          &nbsp; &nbsp; &nbsp; &nbsp; - <a href="<%= chapter.url_path %>"> <%= chapter.chapter_name %> </a> <br>
+        <% end %>
+      <% end %>
+      <br />
+      <br />
+      
+      <% if current_user.is_teacher %>
+        <button class="btn btn-primary" onclick="download_notes('<%= params[:id] %>', '<%= current_user.id %>');"> Download Teacher Class Notes</button>
+        <button class="btn btn-success" onclick="enroll('<%= params[:id] %>');"> Enroll Students</button>
+        <button class="btn btn-warning" onclick="myGrades('<%= params[:id] %>');"> View Student Grades</button>
+      <% else %>
+        <button class="btn btn-primary" onclick="download_notes('<%= params[:id] %>', '<%= current_user.id %>');"> Download My Class Notes</button>
+        <button class="btn btn-warning" onclick="studentGrades('<%= params[:id] %>');"> My Grades</button>
+      <% end %>
+
+     
+        
+      
+    
+    </div>
+</body>
+
+
+
+<script>
+  function download_notes(book_id,user_id){
+    window.location.href = "../downloads?book_id=" + book_id + "&user_id=" + user_id
+  }
+
+  function enroll(book_id){
+    window.location.href = "../enrollments?book_id=" + book_id
+  }
+  function myGrades(book_id){
+    window.location.href = "../grades?book_id=" + book_id
+  }
+  function studentGrades(book_id){
+    window.location.href = "../student_grade?book_id=" + book_id
+  }
+</script>

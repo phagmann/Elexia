@@ -1,0 +1,111 @@
+<form action="../chapters" method="post">
+<br/>
+<input type="text" class="form-control" id="user_id" name="user_id" value="<%= current_user.id %>" style="display:none;">
+
+
+<div class="form-group row">
+    
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_id"> Subject:</label>
+        <select class="form-control" id="subject_id" name="subject_id">
+        <option value="">Select a Subject</option>
+            <% current_user.teacher_subjects.uniq.each do |subject| %>
+                <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+            <% end %>
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_id"> Course:</label>
+        <select class="form-control" id="book_id" name="book_id">
+        <option name="keep_option_book" value="">Select a Course</option>
+            <% current_user.teacher_books.uniq.each do |book| %>
+                <option name="<%= book.subject_id %>" value="<%= book.id %>" hidden><%= book.book_name %></option>
+            <% end %>
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_id"> Section:</label>
+        <select class="form-control" id="section_id" name="section_id">
+        <option name="keep_option_section" value="">Select a Section</option>
+            <% current_user.teacher_sections.uniq.each do |section| %>
+                <option name="<%= section.book_id %>" value="<%= section.id %>" hidden><%= section.section_name %></option>
+            <% end %>
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="subject_name">Chapter Name:</label>
+        <input type="text" class="form-control" id="chapter_name" name="chapter_name" maxlength="100">
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <label for="book_description">Description:</label>
+        <input type="text" class="form-control" id="chapter_description" name="chapter_description" >
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-offset-6">
+        <input type="submit" value="Submit">
+   </div>
+</div>
+
+
+</form>
+
+<script>
+    
+var subject = document.getElementById("subject_id");
+
+subject.addEventListener("change", function() {
+    var books = document.getElementById("book_id")
+    var sections = document.getElementById("section_id")
+    books.options[0].selected = true;
+    sections.options[0].selected = true;
+    for(var i = 0; i < books.options.length; i++){
+        var curr_option = books.options[i]
+        console.log(curr_option.getAttribute('name'))
+        if(curr_option.getAttribute('name') == subject.value || curr_option.getAttribute('name') == 'keep_option_book'){
+            curr_option.hidden = false;
+        }else{
+            curr_option.hidden = true;
+        }
+        if(i > 0){
+            sections.options[i].hidden = true;
+        }
+
+    }
+    
+});
+
+
+var book = document.getElementById("book_id");
+
+book.addEventListener("change", function() {
+    var sections = document.getElementById("section_id")
+    sections.options[0].selected = true;
+    for(var i = 0; i < sections.options.length; i++){
+        var curr_option = sections.options[i]
+        console.log(curr_option.getAttribute('name'))
+        if(curr_option.getAttribute('name') == book.value || curr_option.getAttribute('name') == 'keep_option_section'){
+            curr_option.hidden = false;
+        }else{
+            curr_option.hidden = true;
+        }
+    }
+    
+});
+
+</script>

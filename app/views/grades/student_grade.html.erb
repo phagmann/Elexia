@@ -1,0 +1,41 @@
+<body class="greyBackround">
+<h1>Grades Of <%= @student.email %></h1>
+<!-- <%= @book.id %> <br /> -->
+<!-- <%= @student.id %> <br /> -->
+<!-- <%= @teacher.id %> <br /> -->
+<!-- <%= @grades  %> <br /> -->
+
+
+<!-- TODO:  - get grade weight
+            - get all assignments with scores out of total
+            - total up % in each weight and display
+            - show current grade
+            - special case, dont count weight if no assignments in grade, ratio math between other weights.
+-->     
+        <% curr_weight_id = -1 %>
+        <% weight_array = [] %>
+        <% score_array = [] %>
+        <% @grades.each do |grade| %>
+            <% if curr_weight_id != grade.grade_weight_index%>
+                <h2>Weight Amount: <%= @book.book_weights_string_list.split(',')[grade.grade_weight_index].to_s + 37.chr %></h2>
+                <% curr_weight_id = grade.grade_weight_index%>
+            <% end %>
+                  <h5> Assignment <%= grade.assignment_id %>: <%= grade.score_out_of_points %> / <%= grade.points %> </h5>
+
+            <% weight_grade = grade.sum_grades_for_weight%>
+            <% if weight_grade != ''%>
+                <h3> <%= "Grade For Weight: " + weight_grade.to_s + 37.chr %> </h3>
+                <% weight_array += [@book.book_weights_string_list.split(',')[grade.grade_weight_index].to_f] %>
+                <% score_array += [weight_grade.to_f] %>
+            <% end %>
+
+        <% end %>
+        <%= weight_array%>
+        <%= score_array%>
+        <% final_score = weight_array.zip(score_array).map{|x, y| (x * y) / 100.00}.inject(0){|accum, i| accum + i } %>
+        <h3> <%= "Current Grade: " + final_score.to_s + 37.chr %> </h3>
+     <!--    @grades.first.sum_grades_for_class -->
+
+
+
+</body>

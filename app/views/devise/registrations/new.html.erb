@@ -1,0 +1,50 @@
+<center>
+  <h2>Sign up</h2>
+  <style>
+    .FormArea input[type=radio] { float: right; }
+    .FormArea input[type=radio] label { float: left;}
+  </style>
+  <!-- TODO: figure out student id relationship, maybe a checkbox dropdown if checked/unchecked students-->
+  <% @user_code = User.new.create_user_code %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="col-sm-4 col-sm-offset-4">
+      <%= f.input :first_name, required: true, autofocus: true %>
+      <%= f.input :last_name, required: true, autofocus: true %>
+      <%= f.input :user_code, required: true, :readonly => true, label: 'User ID', :input_html => { :value => @user_code } %>
+      <%= f.input :email, required: true, autofocus: true %>
+      <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+      <%= f.input :password_confirmation, required: true %>
+      <%= f.input :is_teacher, label: 'Teacher?',
+             :collection => [['',true], ['',false]],
+             :label_method => :first, 
+             :value_method => :last, as: :radio_buttons, autofocus: true, :item_wrapper_class => 'inline', label_html: { class: "text-left" }%>
+
+      <%= f.button :submit, "Sign up", :class => "btn btn-primary" %>
+    </div>
+
+    
+      
+    
+  <% end %>
+
+  <!-- TODO: figure out how to have checkbox value go into uses. might need to use javascript or search other pages -->
+
+
+  <!-- <%= render "devise/shared/links" %> -->
+
+</center>
+
+<script >
+  
+$("#user_is_teacher_false").removeClass("form-control");
+$("#user_is_teacher_true").removeClass("form-control");
+$( document ).ready(function() {
+  var truthie = document.getElementById('user_is_teacher_true').parentElement
+  truthie.innerHTML = "<span style='position:relative;right:30px;'>Yes</span>" + truthie.innerHTML.toString();
+
+  var falseie = document.getElementById('user_is_teacher_false').parentElement
+  falseie.innerHTML = "<span style='position:relative;right:30px;'>No</span>" + falseie.innerHTML.toString();
+});
+</script>

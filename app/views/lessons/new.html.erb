@@ -1,0 +1,243 @@
+<!-- <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe> watch?v= => embed/ -->
+
+<!--   <br/>
+ <embed style =" position:relative;left:80px" src="https://www.myskillstutor.com/guides/classroomguide/mffWorksheets.pdf" width="500" height="450" alt="pdf"> -->
+
+<!-- <img src="https://www.onceuponachef.com/images/2017/10/Spaghetti-Pie-19.jpg" height="300" width="300"> -->
+
+<% if params.key?("page_max") && params['pages'].to_i >= params['page_max'].to_i %>
+    <form action="../lessons" method="post"> 
+<% else %>
+    <form action="../lessons/new" method="get">
+<% end %>
+<br/>
+<% params.each_pair do |key, value| %>
+  <input type="text" class="form-control" id="<%= key %>" name="<%= key %>" value="<%= value %>" style="display:none;">
+<% end %>
+<% if params['pages'] == 0 %>
+    <h1><center>Make Lesson</center></h1>
+    <div class="form-group row">
+        
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="subject_id"> Subject:</label>
+            <select class="form-control" id="subject_id" name="subject_id">
+            <option value="">Select a Subject</option>
+                <% current_user.teacher_subjects.uniq.each do |subject| %>
+                    <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="book_id"> Course:</label>
+            <select class="form-control" id="book_id" name="book_id">
+            <option name="keep_option_book" value="">Select a Course</option>
+                <% current_user.teacher_books.uniq.each do |book| %>
+                    <option name="<%= book.subject_id %>" value="<%= book.id %>" hidden><%= book.book_name %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="section_id"> Section:</label>
+            <select class="form-control" id="section_id" name="section_id">
+            <option name="keep_option_section" value="">Select a Section</option>
+                <% current_user.teacher_sections.uniq.each do |section| %>
+                    <option name="<%= section.book_id %>" value="<%= section.id %>" hidden><%= section.section_name %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="chapter_id"> Chapter:</label>
+            <select class="form-control" id="chapter_id" name="chapter_id">
+            <option name="keep_option_chapter" value="">Select a Chapter</option>
+                <% current_user.teacher_chapters.uniq.each do |chapter| %>
+                    <option name="<%= chapter.section_id %>" value="<%= chapter.id %>" hidden><%= chapter.chapter_name %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="lesson_name">Lesson Name:</label>
+            <input type="text" class="form-control" id="lesson_name" name="lesson_name" maxlength="100">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="lesson_description">Description:</label>
+            <input type="text" class="form-control" id="lesson_description" name="lesson_description" >
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="page_max">Max Boxes for Lesson:</label>
+            <input type="text" class="form-control" id="page_max" name="page_max" >
+        </div>
+    </div>
+<% else %>
+
+
+
+
+    <h1><center>Lesson Box <%= params['pages']%> of <%= params['page_max']%></center> </h1>
+
+
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="header_<%= params['pages']%>">Header:</label>
+            <input type="text" class="form-control" id="header_<%= params['pages']%>" name="header_<%= params['pages']%>">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="paragraph_<%= params['pages']%>">Paragraph Content:</label>
+            <textarea type="text" class="form-control" id="paragraph_<%= params['pages']%>" name="paragraph_<%= params['pages']%>"  rows="30"></textarea>
+            
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="figure_<%= params['pages']%>">Figure:</label>
+            <input type="text" class="form-control" id="figure_<%= params['pages']%>" name="figure_<%= params['pages']%>" placeholder="Only urls for now. Upload coming soon!">
+        </div>
+    </div>
+
+    <div class="form-group row" hidden>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="point_<%= params['pages']%>">PowerPoint:</label>
+            <input type="text" class="form-control" id="point_<%= params['pages']%>" name="point_<%= params['pages']%>" placeholder="Only urls for now. Upload coming soon!">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="video_<%= params['pages']%>">Video:</label>
+            <input type="text" class="form-control" id="video_<%= params['pages']%>" name="video_<%= params['pages']%>" placeholder="Only urls for now. Upload coming soon!">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="doc_<%= params['pages']%>">Document:</label>
+            <input type="text" class="form-control" id="doc_<%= params['pages']%>" name="doc_<%= params['pages']%>" placeholder="Only urls for now. Upload coming soon!">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="solve_<%= params['pages']%>">Visual Example (Math Expression):</label>
+            <input type="text" class="form-control" id="solve_<%= params['pages']%>" name="solve_<%= params['pages']%>">
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+<% end %>
+
+<div class="form-group row">
+    <div class="col-sm-offset-6">
+        <% if params.key?("page_max") && params['pages'].to_i >= params['page_max'].to_i %>
+            <input type="submit" value="Submit">
+        <% else %>
+            <input type="submit" value="Next">
+        <% end %>
+        
+   </div>
+</div>
+
+
+</form>
+
+<script>
+    
+var subject = document.getElementById("subject_id");
+
+subject.addEventListener("change", function() {
+    var books = document.getElementById("book_id")
+    var sections = document.getElementById("section_id")
+    var chapters = document.getElementById("chapter_id")
+    books.options[0].selected = true;
+    sections.options[0].selected = true;
+    chapters.options[0].selected = true;
+    for(var i = 0; i < books.options.length; i++){
+        var curr_option = books.options[i]
+        console.log(curr_option.getAttribute('name'))
+        if(curr_option.getAttribute('name') == subject.value || curr_option.getAttribute('name') == 'keep_option_book'){
+            curr_option.hidden = false;
+        }else{
+            curr_option.hidden = true;
+        }
+        if(i > 0){
+            sections.options[i].hidden = true;
+            chapters.options[i].hidden = true;
+        }
+
+    }
+    
+});
+
+
+var book = document.getElementById("book_id");
+
+book.addEventListener("change", function() {
+    var sections = document.getElementById("section_id")
+    var chapters = document.getElementById("chapter_id")
+    sections.options[0].selected = true;
+    chapters.options[0].selected = true;
+    for(var i = 0; i < sections.options.length; i++){
+        var curr_option = sections.options[i]
+        console.log(curr_option.getAttribute('name'))
+        if(curr_option.getAttribute('name') == book.value || curr_option.getAttribute('name') == 'keep_option_section'){
+            curr_option.hidden = false;
+        }else{
+            curr_option.hidden = true;
+        }
+        if(i > 0){
+            chapters.options[i].hidden = true;
+        }
+    }
+    
+});
+
+
+var section = document.getElementById("section_id");
+
+section.addEventListener("change", function() {
+    var chapters = document.getElementById("chapter_id")
+    chapters.options[0].selected = true;
+    for(var i = 0; i < chapters.options.length; i++){
+        var curr_option = chapters.options[i]
+        console.log(curr_option.getAttribute('name'))
+        if(curr_option.getAttribute('name') == section.value || curr_option.getAttribute('name') == 'keep_option_chapter'){
+            curr_option.hidden = false;
+        }else{
+            curr_option.hidden = true;
+        }
+    }
+    
+});
+
+</script>

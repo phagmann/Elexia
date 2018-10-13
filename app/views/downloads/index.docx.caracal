@@ -1,0 +1,51 @@
+        book = Book.find(@book_id)
+        person_id = @current_user_id
+        sections = book.sections
+        chapters = book.chapters
+        lessons = book.lessons
+
+        docx.h1 book.book_name + ' Notes'
+        docx.hr
+        docx.p
+
+        docx.ol do
+            sections.each do |section|
+                li section.section_name do
+                  ol do
+                    section.chapters.each do |chapter|
+                        li chapter.chapter_name do
+                          ol do
+                            chapter.lessons.each do |lesson|
+                            boxes = lesson.boxes
+                            li lesson.lesson_name do
+                                ol do
+                                    boxes.each do |box|
+                                        li box.title do
+                                        ol do
+                                            empty = true
+                                            (1..6).each do |i|
+                                                n = Note.where(note_type: i, user_id: person_id, box_id: box.id).first
+                                                if !n.blank?
+                                                    li n.text
+                                                    empty = false
+                                                end
+
+
+                                            end
+                                            li '' if empty
+                                            
+                                        end
+                                    end
+                                
+                                end
+
+                            end
+                          end
+                        end
+                    end
+                  end
+                end
+            end
+          end
+        end
+      end

@@ -1,0 +1,238 @@
+<style>
+  
+
+
+
+.h2{
+  white-space: normal;
+}
+
+</style>
+
+<!-- <p id="notice"><%= notice %></p> -->
+<body class="greyBackround">
+
+<div class="text-center">
+
+<div class="page-wrapper">
+  <div class="row">
+    <div class="row1 col-sm-12">
+       <div class="text-center" id="p_title" style="display: block; position: relative; opacity: 0.0; right: 250px;">
+        <div id="main_slide" class="card-block">
+          <h1 class="h1-responsive page-header" style="align:center"><strong>Elexia</strong></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<!-- ==================== -->
+
+
+<% if user_signed_in? %>
+<!--  <%= current_user.create_user_code %> -->
+<div  align="center">
+  <h2> Class I am Enrolled In: </h2><br>
+
+  <% amount = current_user.subjects.uniq.length %>
+  <% counter = 0 %>
+
+  <div class="row">
+  <% current_user.subjects.uniq.each do |subject| %>
+    <% counter += 1 %>
+    <% if Grid.organize_left(amount,counter) %>
+          <div class="col-sm-4">
+        <% end%>
+
+    <div class="framez" style="background-color:#ff9999;">
+    <span><h4> <%= subject.subject_name %> </h4> </span>
+    <% books = current_user.books.where(subject_id: subject.id).select("books.*, coalesce(MAX(book_visit_logs.created_at), '1900-01-01 00:00:00') as time_order").joins("LEFT JOIN book_visit_logs ON #{current_user.id} = book_visit_logs.user_id AND books.id = book_visit_logs.book_id" ).group("books.id, book_visit_logs.user_id").order("time_order desc").limit(3) %>
+    
+
+    <% books.each do |book| %>
+      <h6 style="margin:1;padding:1;"> - <a href="<%= book.url_path %>"> <%= book.book_name %> </a> </h6>
+    <% end %>
+
+    <% if books.length >= 3%>
+            <% more_books = current_user.books.where(subject_id: subject.id) %>
+            <a id = "add_new_group" data-toggle = "modal" data-target = "#myModal_stu_<%= subject.id %>" class="nopadding" href="javascript:void(0);"> View More</a>
+
+            <div id="myModal_stu_<%= subject.id %>" class="modal fade" role="dialog">
+                <div class="modal-dialog" style="width:60% !important">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><%= subject.subject_name %> Classes</h4>
+                        </div>
+                        <div class="modal-body" id="modal-body_stu_<%= subject.id %>">
+                            <table  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr >
+                                        <th>List of Classes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% more_books.each do |book2| %>
+                                    <tr>
+                                        <td><a href="<%= book2.url_path %>"> <%= book2.book_name %> </a></td>
+                                    </tr>
+
+                                    <% end%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <% end %>
+
+          <!-- ======================= -->
+
+    </div>
+     <% if Grid.organize_left(amount,counter + 1) %>
+          </div>
+        <% end%>
+  <% end %>
+  </div>
+
+
+  <!-- ===================================== -->
+
+
+  <h2> Classes I Teach: </h2><br>
+  
+  <% if current_user.is_teacher %>
+    
+    
+      <% amount = current_user.teacher_subjects.uniq.length %>
+      <% counter = 0 %>
+      <div class="row">
+      <% current_user.teacher_subjects.uniq.each do |subject| %>
+      
+        <% counter += 1 %>
+        
+        <% if Grid.organize_left(amount,counter) %>
+          <div class="col-sm-4">
+        <% end%>
+
+        <div class="framez">
+          <span><h4> <%= subject.subject_name %> </h4> </span>
+          <% books = subject.teacher_books(current_user).select("books.*, coalesce(MAX(book_visit_logs.created_at), '1900-01-01 00:00:00') as time_order").joins("LEFT JOIN book_visit_logs ON books.teacher_id = book_visit_logs.user_id AND books.id = book_visit_logs.book_id").group("books.id, books.teacher_id").order("time_order desc").limit(3) %>
+
+
+          <% books.each do |book| %>
+            <h6 style="margin:1;padding:1;"> - <a href="<%= book.url_path %>"> <%= book.book_name %> </a> </h6>
+          <% end %>
+          
+
+          <% if books.length >= 3%>
+            <% more_books = subject.teacher_books(current_user) %>
+            <a id = "add_new_group" data-toggle = "modal" data-target = "#myModal_<%= subject.id %>" class="nopadding" href="javascript:void(0);"> View More</a>
+
+            <div id="myModal_<%= subject.id %>" class="modal fade" role="dialog">
+                <div class="modal-dialog" style="width:60% !important">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><%= subject.subject_name %> Classes</h4>
+                        </div>
+                        <div class="modal-body" id="modal-body_<%= subject.id %>">
+                            <table  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr >
+                                        <th>List of Classes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% more_books.each do |book2| %>
+                                    <tr>
+                                        <td><a href="<%= book2.url_path %>"> <%= book2.book_name %> </a></td>
+                                    </tr>
+
+                                    <% end%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <% end %>
+
+          <!-- ======================= -->
+        </div>
+
+        <% if Grid.organize_left(amount,counter + 1) %>
+          </div>
+        <% end%>
+      
+      <% end %>
+      </div>
+  <% end %>
+</div>
+<% end %>
+
+
+
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+<script>
+  leftIntroduce("p_title",700) 
+    var framez_height = 0;
+    var framez_width = 0;
+
+  $(document).ready( function(){
+
+    $(".framez").each( function(){
+        if($(this).height() > framez_height && $(this).height() < 200 ){
+          framez_height = $(this).height();
+        }
+        if($(this).width() > framez_width && $(this).width() < 200){
+          framez_width = $(this).width();
+        }
+
+      })
+    $(".framez").each( function(){
+        //console.log(framez_height, framez_width)
+        $(this).height(framez_height)
+        $(this).width(framez_width)
+        //console.log($(this).height(),$(this).width())
+    })   
+
+    $('.table').DataTable( {
+        scrollCollapse: true,
+        bFilter: false,
+        order: [], 
+        searching: true
+
+
+    });
+   
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+      $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+    });
+
+  })
+
+
+
+
+</script>

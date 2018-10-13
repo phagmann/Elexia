@@ -1,0 +1,527 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require taggle
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+ .navbar.navbar-inverse {
+  background: black;
+  border-radius: 0;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  margin-bottom:0;
+  
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.speech-bubble {
+  position: relative;
+  background: #52d9d4;
+  border-radius: .4em;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  width: 0;
+  height: 0;
+  border: 37px solid transparent;
+  border-right-color: #52d9d4;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -18.5px;
+  margin-left: -37px;
+}
+
+.dic-bubble {
+  position: relative;
+  background: #DEB887;
+  border-radius: .4em;
+}
+
+.dic-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  width: 0;
+  height: 0;
+  border: 37px solid transparent;
+  border-right-color: #DEB887;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -18.5px;
+  margin-left: -37px;
+}
+
+body {
+  font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+}
+
+.nav{
+
+    font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+
+  font-weight: 600;
+  letter-spacing: -0.3px;
+
+}
+
+.field_with_errors {
+  color: blue;
+  background-color: #FFEEEE;
+  border-radius: 3px;
+  padding:8px;
+  }
+
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
+
+.nav .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #d9dff9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.nav .dropdown .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav .dropdown .dropdown-content a:hover {
+  background-color: #65f4f7;
+  border-style: solid; 
+  border-color: #31d1e2;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #65f4f7;
+}
+
+green {
+color: green;
+}
+
+red {
+background: linear-gradient(to left top, transparent 40.75%,
+currentColor 49.5%, currentColor 50.5%, transparent 52.25%);
+color: red;
+}
+
+
+
+.greyBackround {
+  background-color: #F0F8FF;
+}
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  margin: 1rem;
+  position: relative;
+  width: 75%;
+}
+
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card-1:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.pin:hover {
+  text-shadow: 0 0 5px rgba(0,0,255,0.75);
+}
+
+.framez {
+  background-color:#7FFFD4;
+  border:solid 30px #eee;
+  border-bottom-color:#fff;
+  border-left-color:#eee;
+  border-radius:2px;
+  border-right-color:#eee;
+  border-top-color:#ddd;
+  box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
+  box-sizing:border-box;
+  display:inline-block;
+  margin:2vh 2vw;
+  padding:2vmin;
+  position:relative;
+  text-align:center;
+  &:before {
+    border-radius:2px;
+    bottom:-2vmin;
+    box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
+    left:-2vmin;
+    right:-2vmin;
+    top:-2vmin;
+  }
+  &:after {
+    border-radius:2px;
+    bottom:-2.5vmin;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+    left:-2.5vmin;
+    right:-2.5vmin;
+    top:-2.5vmin;
+  }
+}
+.framez:hover {
+  box-shadow: 0 14px 28px;
+}
+
+
+
+
+
+
+
+
+
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0); }
+  40% {
+    -webkit-transform: translateY(-16px); }
+  60% {
+    -webkit-transform: translateY(-7px); } }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  40% {
+    -webkit-transform: translateY(-16px);
+            transform: translateY(-16px); }
+  60% {
+    -webkit-transform: translateY(-7px);
+            transform: translateY(-7px); } }
+
+.option {
+    margin-bottom: 2em;
+}
+
+.option p {
+    margin-bottom: 0;
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+          animation-name: bounce; }
+
+#forkongithub a {
+  background: #990033;
+  color: #fff; }
+
+.project_container a {
+  color: #000; }
+
+.clearfix:before, .clearfix:after {
+  display: block;
+  content: "";
+  line-height: 0;
+  clear: both; }
+
+.taggle_list {
+  float: left;
+  width: 100%;
+  margin: 0;
+}
+
+.taggle_input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 300; }
+
+.taggle_list li {
+  float: left;
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 500;
+  margin-bottom: 5px; }
+
+.taggle_list .taggle {
+  margin-right: 8px;
+  line-height: 1.2;
+  background: #E2E1DF;
+  padding: 5px 10px;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  transition: all .3s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both; }
+
+.taggle_list .taggle_hot {
+  background: #cac8c4; }
+
+.taggle_list .taggle .close {
+  font-size: 1.1rem;
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  text-decoration: none;
+  padding-left: 2px;
+  padding-top: 3px;
+  line-height: 0.5;
+  color: #ccc;
+  color: rgba(0, 0, 0, 0.2);
+  padding-bottom: 4px;
+  display: none;
+  border: 0;
+  background: none;
+  cursor: pointer; }
+
+.taggle_list .taggle:hover {
+  padding: 5px;
+  padding-right: 15px;
+  background: #ccc;
+  transition: all .3s; }
+
+.taggle_list .taggle:hover > .close {
+  display: block; }
+
+.taggle_list .taggle .close:hover {
+  color: #990033; }
+
+.taggle_placeholder {
+  position: absolute;
+  color: #CCC;
+  top: 12px;
+  left: 8px;
+  transition: opacity, .25s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.taggle_input {
+  padding: 8px;
+  padding-left: 0;
+  float: left;
+  margin-top: -5px;
+  background: none;
+  width: 100%;
+  max-width: 100%; }
+
+.taggle_sizer {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -500px;
+  z-index: -1;
+  visibility: hidden; }
+
+/*container styles*/
+textarea.input,
+.textarea.input {
+  border: 0;
+  background: #FDFDFD;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(255, 255, 255, 0.7);
+  min-height: 60px;
+  padding: 8px;
+  border-radius: 3px;
+  color: #555;
+  transition: all .25s;
+  cursor: text;
+  margin-bottom: 2em;
+  position: relative; }
+
+.textarea.input:focus,
+.textarea.input.active,
+textarea.input:focus,
+textarea.input.active {
+  background: #fff;
+  transition: all .25s; }
+
+.textarea.input,
+textarea.input {
+  height: auto; }
+
+.textarea.tags {
+  position: relative; }
+
+.textarea.tags * {
+  box-sizing: content-box; }
+
+.placeholder_input {
+  position: relative; }
+
+.placeholder_input span {
+  position: absolute;
+  color: #AAA;
+  top: 50%;
+  margin-top: -11px;
+  left: 10px; }
+
+.placeholder_input input {
+  width: 120px; }
+
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.ui-menu {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+  display: block;
+  outline: none; }
+
+.ui-widget-content {
+  background: #fff;
+  color: #990033; }
+
+.ui-menu .ui-menu-item {
+  margin: 0;
+  padding: 0;
+  width: 100%; }
+
+.ui-menu .ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  padding: 2px .4em;
+  line-height: 1.5;
+  min-height: 0;
+  font-weight: normal;
+  color: #8a8a8a;
+  cursor: pointer; }
+  .ui-menu .ui-menu-item a:hover {
+    color: #fff;
+    background: #990033; }
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+  background: #990033;
+  color: #fff !important; }
+
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited {
+  color: #fff; }
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  border: 1px solid #aaaaaa;
+  background: #ffffff;
+  font-weight: normal;
+  color: #212121; }
+
+.ui-helper-hidden {
+  display: none; }
+
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+.autocomplete {
+  max-height: 200px;
+  overflow: scroll;
+  position: absolute;
+  top: 66px;
+  background: white;
+  width: 99.5%;
+  left: 0.25%;
+  z-index: 2; }
+
+.autocomplete ul li {
+  display: block;
+  padding: 6px 8px; }
+
+.autocomplete ul li.selected, .autocomplete ul li:hover {
+  background: #ff6633;
+  color: #fff;
+  cursor: pointer; }
+
+.ui-autocomplete {
+  max-height: 200px;
+  overflow: scroll;
+  width: 99% !important; }
+
+.custom.textarea {
+  border-radius: 0;
+  box-shadow: none; }
+  .custom.textarea .taggle {
+    border-radius: 0;
+    padding: 5px;
+    padding-right: 20px; }
+    .custom.textarea .taggle .close {
+      display: inline-block;
+      right: 3px; }
+
+
+
+.custom.stackoverflow {
+  border: 1px solid #ccc;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .custom.stackoverflow .taggle {
+    color: #3E6D8E;
+    border-radius: 0;
+    background-color: #E0EAF1;
+    font-weight: 200; }
+    .custom.stackoverflow .taggle.taggle_hot {
+      background: #BDD0DD; }
+    .custom.stackoverflow .taggle .close {
+      color: #aaa;
+      border-radius: 1.0rem;
+      font-size: 1.0rem;
+      height: 1.0rem;
+      width: 1.0rem;
+      line-height: .1rem;
+      margin-top: 3px; }
+      .custom.stackoverflow .taggle .close:hover {
+        background: #C03434;
+        color: #fff; }

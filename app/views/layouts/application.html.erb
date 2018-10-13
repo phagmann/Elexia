@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elexia</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track'=> true  %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track'=> true  %>
+    <%= javascript_include_tag 'addition', 'data-turbolinks-track'=> true  %>
+  </head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+
+
+
+  <body>
+        
+        
+
+        <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  style="z-index: 1;">
+      <ul class="nav navbar-nav">
+        
+        <% Menu.pluck(:hierarchy).uniq.each do |header| %>
+           <% if (!user_signed_in? && header == "Dashboard") || (user_signed_in? && (current_user.is_teacher  || (!current_user.is_teacher && header != "Teachers")))  %>  
+             <li class="dropdown">
+                <a href="##" class="inactiveLink"><font color="#B0C4DE"> <%= header %> </font> </a>
+                <div class="dropdown-content"  style=" position:fixed; z-index: 9999;">
+                  <% Menu.where("hierarchy = ?", header).order("order_cato").pluck(:category).uniq.each do |category|  %>
+                      <h4> <font color="#000000"> <%= category %> </font></h4>
+                      <% Menu.where("hierarchy = ? AND category = ?", header,category).order("order_title").each do |list_element| %>
+                          <a class="menuHighlight" href="##" onclick="menuAjax('<%= list_element.url_path %>');"> <font color="#382ab7"><%= list_element.title %> </font></a>
+                      <% end %>
+                
+                  <% end %>
+                </div>
+            </li>
+          <% end %> 
+        <% end %>
+        
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <% if user_signed_in? %>
+       <!--  <li><font color="#B0C4DE"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></font></li> -->
+        <li class="dropdown"><a href="../users/sign_out" data-method="delete"><font color="#B0C4DE">Sign out</font></a></li>
+      <% else %>
+<!--         <li><font color="#B0C4DE"><%= link_to 'Sign in', new_user_session_path %></font></li>
+        <li><font color="#B0C4DE"><%= link_to 'Sign up', new_user_registration_path %></font></li> -->
+
+        <li class="dropdown"><a href="../users/sign_in"><font color="#B0C4DE">Sign in</font></a></li>
+        <li class="dropdown"><a href="../users/sign_up"><font color="#B0C4DE">Sign up</font></a></li>
+      <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+ 
+
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+    <p class="notice" hidden><%= notice %></p>
+    <p class="alert" hidden><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>
+
