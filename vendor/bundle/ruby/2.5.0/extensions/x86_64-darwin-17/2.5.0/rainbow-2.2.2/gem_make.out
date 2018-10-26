@@ -1,0 +1,5 @@
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/rainbow-2.2.2/ext
+/Users/patrickhagmann/.rvm/rubies/ruby-2.5.1/bin/ruby mkrf_conf.rb
+
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/rainbow-2.2.2/ext
+/Users/patrickhagmann/.rvm/rubies/ruby-2.5.1/bin/ruby -rrubygems /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/rake-12.3.0/exe/rake RUBYARCHDIR=/Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/extensions/x86_64-darwin-17/2.5.0/rainbow-2.2.2 RUBYLIBDIR=/Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/extensions/x86_64-darwin-17/2.5.0/rainbow-2.2.2

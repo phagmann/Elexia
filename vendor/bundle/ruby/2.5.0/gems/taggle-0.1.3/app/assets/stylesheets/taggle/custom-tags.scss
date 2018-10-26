@@ -1,0 +1,96 @@
+//
+// Unofficial set of styles based on the official examples of the Taggle.js project
+//
+// Author: @hsgubert - Henrique Gubert
+// Based on the examples developed by @okcoker - Sean Coker
+
+div.taggle {
+  &.custom {
+    border-radius: 0;
+    box-shadow: none;
+
+    .taggle {
+      border-radius: 0;
+      padding: 5px;
+      padding-right: 20px;
+
+      .close {
+        display: inline-block;
+        right: 3px;
+      }
+    }
+
+    // Delicious style
+    &.delicious {
+      background-image: linear-gradient(to bottom,#eee 1%,#fff 15%);
+      border: 1px solid #AAA;
+      min-height: 50px;
+
+      &.active {
+        border-color: #3274D1;
+        background-image: linear-gradient(to bottom,#eee 1%,#fff 15%);
+      }
+
+      .taggle {
+        color: #444;
+        border-radius: 0;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+        background-color: #ddd;
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        padding: 5px;
+        padding-left: 20px;
+
+        .close {
+          color: #aaa;
+          font-size: 0.9rem;
+          height: 0.7rem;
+          width: 0.7rem;
+          line-height: .1rem;
+          margin-top: 3px;
+          right: auto;
+          left: 5px;
+
+          &:hover {
+            color: #888;
+          }
+        }
+      }
+    }
+
+    // StackOverflow style
+    &.stackoverflow {
+      border: 1px solid #ccc;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+      .taggle {
+        color: #3E6D8E;
+        border-radius: 0;
+        background-color: #E0EAF1;
+        font-weight: 200;
+
+        &.taggle_hot {
+          background: #BDD0DD;
+        }
+
+        .close {
+          color: #aaa;
+          border-radius: 0.7rem;
+          font-size: 0.9rem;
+          height: 0.7rem;
+          width: 0.7rem;
+          line-height: .1rem;
+          margin-top: 3px;
+
+          &:hover {
+            background: #C03434;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    // Other custom styles here
+  }
+}

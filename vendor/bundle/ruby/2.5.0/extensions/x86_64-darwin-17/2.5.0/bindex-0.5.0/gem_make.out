@@ -1,0 +1,15 @@
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/bindex-0.5.0/ext/bindex
+/Users/patrickhagmann/.rvm/rubies/ruby-2.5.1/bin/ruby -r ./siteconf20181025-18536-d7xepv.rb extconf.rb
+creating Makefile
+
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" clean
+
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR="
+compiling cruby.c
+linking shared-object bindex/cruby.bundle
+
+current directory: /Users/patrickhagmann/Desktop/elexia/vendor/bundle/ruby/2.5.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cruby.bundle ./.gem.20181025-18536-vrisl0/bindex
