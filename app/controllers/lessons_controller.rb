@@ -14,6 +14,9 @@ class LessonsController < ApplicationController
 
     def show
         @lesson = Lesson.find(params[:id])
+
+        Chapter.find(@lesson.chapter_id).update(last_lesson_visited: @lesson.id)
+        
         render layout: false
     end
 
