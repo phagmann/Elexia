@@ -13,8 +13,8 @@
       <br />
       <br />
       
-      <% if current_user.is_teacher %>
-        <button class="btn btn-primary" onclick="download_notes('<%= params[:id] %>', '<%= current_user.id %>');"> Download Teacher Class Notes</button>
+      <% if current_user.is_teacher &&  @book.teacher_id == current_user.id %>
+        <button class="btn btn-primary" onclick="download_notes('<%= params[:id] %>', '<%= current_user.id %>');"> Download Teacher's Class Notes</button>
         <button class="btn btn-success" onclick="enroll('<%= params[:id] %>');"> Enroll Students</button>
         <button class="btn btn-warning" onclick="myGrades('<%= params[:id] %>');"> View Student Grades</button>
       <% else %>

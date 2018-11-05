@@ -35,7 +35,7 @@
 <% if user_signed_in? %>
 <!--  <%= current_user.create_user_code %> -->
 <div  align="center">
-  <h2> Class I am Enrolled In: </h2><br>
+  <h2> Classes I am Enrolled In: </h2><br>
 
   <% amount = current_user.subjects.uniq.length %>
   <% counter = 0 %>
@@ -131,7 +131,7 @@
           <% end %>
           
 
-          <% if books.length >= 3%>
+          <% if books.length > 3%>
             <% more_books = subject.teacher_books(current_user) %>
             <a id = "add_new_group" data-toggle = "modal" data-target = "#myModal_<%= subject.id %>" class="nopadding" href="javascript:void(0);"> View More</a>
 
