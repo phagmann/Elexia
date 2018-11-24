@@ -33,6 +33,14 @@
 //         gdex: 0
 //     };
 
+String.prototype.positionOf = function(start,endsubstr){
+  for(var i =  1; i < this.length; i++){
+    if(getPosition(this, endsubstr, i) > this.indexOf(start)){
+      return getPosition(this, endsubstr, i)
+    }
+  }
+
+}
 
 function stopRKey(evt) { 
   var evt = (evt) ? evt : ((event) ? event : null); 
@@ -172,6 +180,8 @@ function textBoxOut(MainDivId, edit_id, save_id, note_type, user_id, box_id){
 
 }
 
+
+
 function getPosition(string, subString, index) {
    if(string.split(subString, index).join(subString).length == string.length){
     return 0;
@@ -179,14 +189,7 @@ function getPosition(string, subString, index) {
    return string.split(subString, index).join(subString).length;
 }
 
-String.prototype.positionOf = function(start,endsubstr){
-  for(var i =  1; i < this.length; i++){
-    if(getPosition(this, endsubstr, i) > this.indexOf(start)){
-      return getPosition(this, endsubstr, i)
-    }
-  }
 
-}
 
 
 
@@ -218,7 +221,6 @@ function addToNotes(defintion, box_id, user_id){
                 dataType: 'json',
                 data:  { main_string: mainStr, note_type: 5, user_id: user_id, box_id: box_id },
                 success: function(data){
-                    console.log(data);
                 }
               });
 
