@@ -84,7 +84,7 @@ function onlyUnique(arr) {
 
 function subStringRange(str,start,end){
   var strFinal = ""
-  console.log('yoz',str,start,end,'hoz')
+  console.log('yoz',str.positionOf(start,end),'hoz')
   for(var i =  0; i < str.length; i++){
     if(!(i >= str.indexOf(start) && i < str.positionOf(start,end))){
       strFinal += str[i];
