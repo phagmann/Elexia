@@ -1,4 +1,5 @@
 
+
 <div class="text-center" style="position:relative;right:11.5%;">
 <h1> <%= @lesson.lesson_name %></h1>
 </div>
@@ -19,9 +20,7 @@ alert( $.fn.jquery )
 }
 
 </style>
-<script>
-    
-</script>
+
 
 <div class="text-left">
 <% @lesson.boxes.order(ordering: :asc).each do |box| %>
