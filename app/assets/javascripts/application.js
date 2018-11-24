@@ -259,7 +259,7 @@ function doSomethingWithSelectedText(box_id,user_id) {
          
 
                 console.log(returned_def.responseText)
-                if(returned_def.responseText.includes("Error in ToolsController")){
+                if(returned_def.responseText.includes("Error in ToolsController") || returned_def.responseText.includes("We're sorry, but something went wrong.")){
                   returned_def.responseText = "there was an error in the definition search. Make sure to exclude plurals and puncuations!"
                 } 
                 x = window.getSelection().getRangeAt(0).getBoundingClientRect().x
