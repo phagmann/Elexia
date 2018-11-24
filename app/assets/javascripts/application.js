@@ -33,6 +33,13 @@
 //         gdex: 0
 //     };
 
+function getPosition(string, subString, index) {
+   if(string.split(subString, index).join(subString).length == string.length){
+    return 0;
+   }
+   return string.split(subString, index).join(subString).length;
+}
+
 String.prototype.positionOf = function(start,endsubstr){
   for(var i =  1; i < this.length; i++){
     if(getPosition(this, endsubstr, i) > this.indexOf(start)){
@@ -40,6 +47,18 @@ String.prototype.positionOf = function(start,endsubstr){
     }
   }
 
+}
+
+function subStringRange(str,start,end){
+  var strFinal = ""
+  console.log('yoz',str.positionOf(start,end),'hoz')
+  for(var i =  0; i < str.length; i++){
+    if(!(i >= str.indexOf(start) && i < str.positionOf(start,end))){
+      strFinal += str[i];
+    }
+    
+  }
+  return strFinal.split(">").join("")
 }
 
 function stopRKey(evt) { 
@@ -90,17 +109,7 @@ function onlyUnique(arr) {
   return finalz
 }
 
-function subStringRange(str,start,end){
-  var strFinal = ""
-  console.log('yoz',str.positionOf(start,end),'hoz')
-  for(var i =  0; i < str.length; i++){
-    if(!(i >= str.indexOf(start) && i < str.positionOf(start,end))){
-      strFinal += str[i];
-    }
-    
-  }
-  return strFinal.split(">").join("")
-}
+
 
 function getOffset(el) {
   el = el.getBoundingClientRect();
@@ -179,21 +188,6 @@ function textBoxOut(MainDivId, edit_id, save_id, note_type, user_id, box_id){
 
 
 }
-
-
-
-function getPosition(string, subString, index) {
-   if(string.split(subString, index).join(subString).length == string.length){
-    return 0;
-   }
-   return string.split(subString, index).join(subString).length;
-}
-
-
-
-
-
-
 
 
 
