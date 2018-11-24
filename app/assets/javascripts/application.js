@@ -82,6 +82,18 @@ function onlyUnique(arr) {
   return finalz
 }
 
+function subStringRange(str,start,end){
+  var strFinal = ""
+  console.log('yoz',str,start,end,'hoz')
+  for(var i =  0; i < str.length; i++){
+    if(!(i >= str.indexOf(start) && i < str.positionOf(start,end))){
+      strFinal += str[i];
+    }
+    
+  }
+  return strFinal.split(">").join("")
+}
+
 function getOffset(el) {
   el = el.getBoundingClientRect();
   return {
@@ -176,16 +188,7 @@ String.prototype.positionOf = function(start,endsubstr){
 
 }
 
-function subStringRange(str,start,end){
-  var strFinal = ""
-  for(var i =  0; i < str.length; i++){
-    if(!(i >= str.indexOf(start) && i < str.positionOf(start,end))){
-      strFinal += str[i];
-    }
-    
-  }
-  return strFinal.split(">").join("")
-}
+
 
 
 
