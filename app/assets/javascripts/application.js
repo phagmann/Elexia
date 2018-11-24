@@ -231,6 +231,8 @@ function getSelectedText() {
     } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
         text = document.selection.createRange().text;
     }
+    //if(text.charAt(text.length - 1) )
+
     return text;
 }
 
@@ -239,29 +241,12 @@ function removeElement(id) {
     return elem.parentNode.removeChild(elem);
 }
 
-$( ".greyBackround" ).click(function(evt) {
-  console.log("hi");
-  console.log(evt);
-  var clicked = evt.target;
-  var currentID = clicked.id || "No ID!";
-  console.log(currentID);
 
-  if(document.getElementById("temp_dictionary")){
-        if( currentID != "another_dic_hgroup" && currentID != "another_dic_span" && currentID != "google_search" && (currentID == "No ID!" || currentID == "content_holder")){
-           //document.getElementById("para").removeChild(document.getElementById("temp_dictionary")); 
-           removeElement("temp_dictionary");
-
-        }
-    }
-  
-});
 
 
 
 function doSomethingWithSelectedText(box_id,user_id) {
     var selectedText = getSelectedText().trim();
-    console.log("hi2");
-    console.log("box: " + box_id.toString());
     if (selectedText) {
 
         if( !document.getElementById("temp_dictionary") && selectedText.replace(/ /g,'').length == selectedText.length){
@@ -274,13 +259,11 @@ function doSomethingWithSelectedText(box_id,user_id) {
          
 
                 console.log(returned_def.responseText)
+                if(returned_def.responseText.includes("Error in ToolsController")){
+                  returned_def.responseText = "there was an error in the definition search. Make sure to exclude plurals and puncuations!"
+                } 
                 x = window.getSelection().getRangeAt(0).getBoundingClientRect().x
                 y = window.getSelection().getRangeAt(0).getBoundingClientRect().y
-                // console.log("X: " + x)
-                // console.log("Y: " + y)
-                // console.log("Got selected text: " + selectedText );
-
-                // TODO: use oxford api and connect it to rails like how u did in poker, ajax. might need a definitions index controller.
                 var popupStr = "<hgroup id='another_dic_hgroup' class='dic-bubble text-left' style='min-width:100px;min-height:100px;'> \
                                     <br> \
                                     <span id='another_dic_span'>"

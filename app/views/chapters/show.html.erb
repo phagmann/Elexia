@@ -24,6 +24,22 @@ $.ajax({
       })
 }
 
+$(document).ready(function() {
+  $(document).click(function(evt) {
+    var clicked = evt.target;
+    var currentID = clicked.id || "No ID!";
+    console.log(currentID);
+
+    if(document.getElementById("temp_dictionary")){
+          if( currentID != "another_dic_hgroup" && currentID != "another_dic_span" && currentID != "google_search" ){
+             //document.getElementById("para").removeChild(document.getElementById("temp_dictionary")); 
+             removeElement("temp_dictionary");
+
+          }
+      }
+    
+  });
+});
 
 
 </script>
