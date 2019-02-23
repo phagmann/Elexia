@@ -74,7 +74,7 @@ subject.addEventListener("change", function() {
     var sections = document.getElementById("section_id")
     books.options[0].selected = true;
     sections.options[0].selected = true;
-    for(var i = 0; i < books.options.length; i++){
+    for(var i = 0; i <= books.options.length; i++){
         var curr_option = books.options[i]
         console.log(curr_option.getAttribute('name'))
         if(curr_option.getAttribute('name') == subject.value || curr_option.getAttribute('name') == 'keep_option_book'){
@@ -82,9 +82,10 @@ subject.addEventListener("change", function() {
         }else{
             curr_option.hidden = true;
         }
-        if(i > 0){
-            sections.options[i].hidden = true;
-        }
+        // if(i > 0){
+        //     console.log(sections.options)
+        //     sections.options[i].hidden = true;
+        // }
 
     }
     
@@ -96,7 +97,7 @@ var book = document.getElementById("book_id");
 book.addEventListener("change", function() {
     var sections = document.getElementById("section_id")
     sections.options[0].selected = true;
-    for(var i = 0; i < sections.options.length; i++){
+    for(var i = 0; i <= sections.options.length; i++){
         var curr_option = sections.options[i]
         console.log(curr_option.getAttribute('name'))
         if(curr_option.getAttribute('name') == book.value || curr_option.getAttribute('name') == 'keep_option_section'){

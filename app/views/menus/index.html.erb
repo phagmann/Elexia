@@ -50,13 +50,12 @@
     <div class="framez" style="background-color:#ff9999;">
     <span><h4> <%= subject.subject_name %> </h4> </span>
     <% books = current_user.books.where(subject_id: subject.id).select("books.*, coalesce(MAX(book_visit_logs.created_at), '1900-01-01 00:00:00') as time_order").joins("LEFT JOIN book_visit_logs ON #{current_user.id} = book_visit_logs.user_id AND books.id = book_visit_logs.book_id" ).group("books.id, book_visit_logs.user_id").order("time_order desc").limit(3) %>
-    
 
     <% books.each do |book| %>
       <h6 style="margin:1;padding:1;"> - <a href="<%= book.url_path %>"> <%= book.book_name %> </a> </h6>
     <% end %>
 
-    <% if books.length >= 3%>
+    <% if current_user.books.where(subject_id: subject.id).length > 3%>
             <% more_books = current_user.books.where(subject_id: subject.id) %>
             <a id = "add_new_group" data-toggle = "modal" data-target = "#myModal_stu_<%= subject.id %>" class="nopadding" href="javascript:void(0);"> View More</a>
 
@@ -124,14 +123,14 @@
         <div class="framez">
           <span><h4> <%= subject.subject_name %> </h4> </span>
           <% books = subject.teacher_books(current_user).select("books.*, coalesce(MAX(book_visit_logs.created_at), '1900-01-01 00:00:00') as time_order").joins("LEFT JOIN book_visit_logs ON books.teacher_id = book_visit_logs.user_id AND books.id = book_visit_logs.book_id").group("books.id, books.teacher_id").order("time_order desc").limit(3) %>
-
+          
 
           <% books.each do |book| %>
             <h6 style="margin:1;padding:1;"> - <a href="<%= book.url_path %>"> <%= book.book_name %> </a> </h6>
           <% end %>
           
 
-          <% if books.length > 3%>
+          <% if subject.teacher_books(current_user).length > 3%>
             <% more_books = subject.teacher_books(current_user) %>
             <a id = "add_new_group" data-toggle = "modal" data-target = "#myModal_<%= subject.id %>" class="nopadding" href="javascript:void(0);"> View More</a>
 
