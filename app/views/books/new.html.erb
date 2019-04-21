@@ -130,6 +130,7 @@ $( document ).ready(function() {
     document.getElementsByClassName('taggle_placeholder')[0].innerHTML = "Enter Tags for Grade Weights. Hit 'Enter' for new tag. Sum of tags must equal 100. Remainder will be a new tag, if any."
     document.getElementsByClassName('taggle_input')[0].type = "text"
     document.getElementsByClassName('taggle_input')[0].setAttribute("oninput", "onWeightChange();", false);
+    document.getElementsByClassName('taggle_input')[0].setAttribute("onpaste", "return false;", false);
 
 });
 </script>
