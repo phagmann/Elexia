@@ -62,7 +62,7 @@ gem 'rails_12factor', group: :production
 gem 'firebase'
 gem 'devise'
 gem 'simple_form'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem "figaro"
 gem "fog"
 gem "mini_magick"
